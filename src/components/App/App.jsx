@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ContactForm } from '../ContactForm/ContactForm';
-import { nanoid } from 'nanoid';
 import { ContactList } from '../ContactList/ContactList';
 import { Filter } from '../Filter/Fillter';
 import { Container } from './App.styled';
@@ -26,19 +25,6 @@ export const App = () => {
     setFilter(target.value);
   };
 
-  const addContact = data => {
-    const newContact = { ...data, id: nanoid() };
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === data.name.toLowerCase()
-      )
-    ) {
-      alert(`${data.name} is already in contacts`);
-      return;
-    }
-    setContacts(prev => [...prev, newContact]);
-  };
-
   const handleDelete = id => {
     setContacts(prev => prev.filter(contact => contact.id !== id));
   };
@@ -50,7 +36,7 @@ export const App = () => {
   return (
     <Container>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
+      <ContactForm />
       <h2>Contacts</h2>
       <Filter handleChange={handleChangeFilter} />
       <ContactList contacts={visibleItems} onDelete={handleDelete} />
